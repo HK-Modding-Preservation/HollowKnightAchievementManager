@@ -49,7 +49,7 @@ public class HollowKnightAchievementManager : Mod, ICustomMenuMod
             }
         }
 
-        Platform.Current.EncryptedSharedData.SetBool(achievementKey, val);
+        Platform.Current.RoamingSharedData.SetBool(achievementKey, val);
     }
 
     private bool GetAchievementUnlocked(string achievementKey)
@@ -66,29 +66,29 @@ public class HollowKnightAchievementManager : Mod, ICustomMenuMod
         elements.Add(new HorizontalOption("Zote Menu Theme",
             "The menu theme unlocked by beating the eternal ordeal",
             new[] { "Locked", "Unlocked" },
-            (option) => Platform.Current.EncryptedSharedData.SetInt("eternalOrdealMenu", option),
-            () => Platform.Current.EncryptedSharedData.GetInt("eternalOrdealMenu", 0)));
+            (option) => Platform.Current.RoamingSharedData.SetInt("eternalOrdealMenu", option),
+            () => Platform.Current.RoamingSharedData.GetInt("eternalOrdealMenu", 0)));
 
         elements.Add(new TextPanel("Game Modes"));
 
         elements.Add(new HorizontalOption("Steel soul mode",
             "The game mode unlocked by beating the game",
             new[] { "Locked", "Unlocked" },
-            (option) => Platform.Current.EncryptedSharedData.SetInt("RecPermadeathMode", option),
-            () => Platform.Current.EncryptedSharedData.GetInt("RecPermadeathMode", 0)));
+            (option) => Platform.Current.RoamingSharedData.SetInt("RecPermadeathMode", option),
+            () => Platform.Current.RoamingSharedData.GetInt("RecPermadeathMode", 0)));
 
         elements.Add(new HorizontalOption("Godseeker mode",
             "The game mode unlocked by beating the first three pantheons",
             new[] { "Locked", "Unlocked" },
-            (option) => Platform.Current.EncryptedSharedData.SetInt("RecBossRushMode", option),
-            () => Platform.Current.EncryptedSharedData.GetInt("RecBossRushMode", 0)));
+            (option) => Platform.Current.RoamingSharedData.SetInt("RecBossRushMode", option),
+            () => Platform.Current.RoamingSharedData.GetInt("RecBossRushMode", 0)));
 
         elements.Add(new TextPanel("Achievements"));
 
-        foreach (Achievement achievement in GameManager.instance.achievementHandler.achievementsList.achievements)
+        foreach (Achievement achievement in GameManager.instance.achievementHandler.AchievementsList.Achievements)
         {
-            elements.Add(new HorizontalOption(Language.Language.Get(achievement.localizedTitle, "Achievements"),
-                Language.Language.Get(achievement.localizedText, "Achievements"),
+            elements.Add(new HorizontalOption(TeamCherry.Localization.Language.Get(achievement.localizedTitle, "Achievements"),
+                TeamCherry.Localization.Language.Get(achievement.localizedText, "Achievements"),
                 new[] { "Locked", "Unlocked" },
                 (option) => SetAchievementUnlocked(achievement.key, option == 1),
                 () => GetAchievementUnlocked(achievement.key) ? 1 : 0));
